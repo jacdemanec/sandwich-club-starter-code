@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -14,6 +15,10 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+    private TextView mIngredientsTv;
+    private TextView mOriginTv;
+    private TextView mAkaTv;
+    private TextView mDescriptionTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,10 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
+        mIngredientsTv = findViewById(R.id.ingredients_tv);
+        mOriginTv = findViewById(R.id.origin_tv);
+        mAkaTv = findViewById(R.id.also_known_tv);
+        mDescriptionTv = findViewById(R.id.description_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -43,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -56,7 +65,31 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        //Append ingredients from the Sandwich object into the ingredients text view
+        for (int i = 0; i < sandwich.getIngredients().size(); i++) {
+            mIngredientsTv.append(sandwich.getIngredients().get(i));
+            if (i+2 < sandwich.getIngredients().size()){
+                mIngredientsTv.append(", ");
+            } else if (i+2 == sandwich.getIngredients().size()){
+                mIngredientsTv.append(" and ");
+            }
+        }
 
+        //Set the place of origin from our Sandwich objext into the text view
+        mOriginTv.setText(sandwich.getPlaceOfOrigin());
+
+        //Append AKAs from our Sandwich object into the propper text view
+        for (int i = 0; i < sandwich.getAlsoKnownAs().size(); i++) {
+            mAkaTv.append(sandwich.getAlsoKnownAs().get(i));
+            if (i+2 < sandwich.getAlsoKnownAs().size()){
+                mAkaTv.append(", ");
+            } else if (i+2 == sandwich.getAlsoKnownAs().size()){
+                mAkaTv.append(" or ");
+            }
+        }
+
+        //Set the description from our Sandwich object into the propper text view
+        mDescriptionTv.setText(sandwich.getDescription());
     }
 }
