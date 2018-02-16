@@ -36,7 +36,7 @@ public class JsonUtils {
                 ingredientsList.add(jsonIngredientsArray.getString(i));
             }
 
-            //Retrun a new Sandwich object with the data obtained from our json
+            //Return a new Sandwich object with the data obtained from our json
             return new Sandwich(mainName, alsoKnownAsList, placeOfOrigin, description, image, ingredientsList);
         } catch (JSONException e) {
             e.printStackTrace();

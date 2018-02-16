@@ -76,10 +76,10 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-        //Set the place of origin from our Sandwich objext into the text view
+        //Set the place of origin from our Sandwich object into the text view
         mOriginTv.setText(sandwich.getPlaceOfOrigin());
 
-        //Append AKAs from our Sandwich object into the propper text view
+        //Append AKAs from our Sandwich object into the proper text view
         for (int i = 0; i < sandwich.getAlsoKnownAs().size(); i++) {
             mAkaTv.append(sandwich.getAlsoKnownAs().get(i));
             if (i+2 < sandwich.getAlsoKnownAs().size()){
@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-        //Set the description from our Sandwich object into the propper text view
+        //Set the description from our Sandwich object into the proper text view
         mDescriptionTv.setText(sandwich.getDescription());
     }
 }
